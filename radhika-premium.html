@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radhika Veg & Lodge — Pure Vegetarian Fine Dining</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #B8934A;
+  --gold2: #D4A85C;
+  --gold3: #F0C878;
+  --cream: #F9F3E8;
+  --ivory: #FAF7F0;
+  --dark: #0D0B07;
+  --dark2: #141008;
+  --dark3: #1C160C;
+  --dark4: #241C0E;
+  --mid: #2E2410;
+  --text: #E8DEC8;
+  --muted: #8A7A5A;
+  --muted2: #6A5A3A;
+  --veg: #4A9E40;
+  --green: #2D5A28;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--dark);color:var(--text);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:6px;height:6px;background:var(--gold2);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s}
+#cur2{position:fixed;width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;opacity:.4;transition:all .35s cubic-bezier(.25,.46,.45,.94)}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--dark);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .8s,visibility .8s}
+#loader.hide{opacity:0;visibility:hidden}
+.loader-logo{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold2);letter-spacing:.15em}
+.loader-bar{width:180px;height:1px;background:rgba(184,147,74,.2);overflow:hidden}
+.loader-fill{height:100%;background:var(--gold2);width:0;animation:fill 2s ease forwards}
+@keyframes fill{to{width:100%}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav.s{padding:16px 72px;background:rgba(13,11,7,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,147,74,.12)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold2);letter-spacing:.1em;text-decoration:none}
+.nav-logo em{font-style:normal;color:var(--text);font-weight:400;font-size:.95rem}
+.nav-links{display:flex;gap:44px;list-style:none}
+.nav-links a{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text);text-decoration:none;opacity:.65;transition:all .3s;font-weight:400}
+.nav-links a:hover{opacity:1;color:var(--gold2)}
+.nav-btn{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(184,147,74,.5);color:var(--gold2);padding:10px 26px;text-decoration:none;transition:all .3s;font-weight:500}
+.nav-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+
+/* HERO */
+#hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:var(--dark)}
+.hero-vid-wrap{position:absolute;inset:0;overflow:hidden}
+.hero-vid-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,11,7,.3) 0%,rgba(13,11,7,.55) 50%,rgba(13,11,7,.92) 100%)}
+.hero-img{width:100%;height:100%;object-fit:cover;opacity:.55;transform:scale(1.06);animation:slowZoom 20s ease infinite alternate}
+@keyframes slowZoom{to{transform:scale(1)}}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:860px;padding:0 40px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:16px;font-size:.6rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold2);margin-bottom:28px;opacity:0;animation:up .9s .3s ease forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:36px;height:1px;background:var(--gold);opacity:.6}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(4rem,9vw,8.5rem);font-weight:700;line-height:.92;letter-spacing:.02em;color:var(--cream);opacity:0;animation:up .9s .5s ease forwards}
+.hero-name span{color:var(--gold2);display:block}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.8rem);font-style:italic;font-weight:300;color:var(--muted);margin:20px 0 48px;opacity:0;animation:up .9s .7s ease forwards;letter-spacing:.04em}
+.hero-hindi{font-size:.85rem;letter-spacing:.1em;color:var(--gold);opacity:.6;margin-bottom:40px;font-weight:300;opacity:0;animation:up .9s .75s ease forwards}
+.hero-ctas{display:flex;gap:20px;justify-content:center;opacity:0;animation:up .9s .9s ease forwards}
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.cta-primary{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;background:var(--gold);color:var(--dark);padding:16px 44px;text-decoration:none;font-weight:600;transition:all .3s}
+.cta-primary:hover{background:var(--gold3);transform:translateY(-2px)}
+.cta-secondary{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;border:1px solid rgba(248,243,232,.25);color:var(--text);padding:16px 44px;text-decoration:none;font-weight:400;transition:all .3s}
+.cta-secondary:hover{border-color:var(--gold);color:var(--gold2)}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);text-align:center;opacity:0;animation:up 1s 1.3s ease forwards}
+.scroll-txt{font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted2)}
+.scroll-line{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);margin:8px auto 0;animation:pulse 2.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* VEG STRIP */
+.veg-strip{background:var(--green);padding:14px 72px;display:flex;align-items:center;justify-content:center;gap:32px}
+.veg-strip span{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.8);font-weight:500}
+.veg-dot{width:10px;height:10px;background:#6FCC64;border-radius:50%;box-shadow:0 0 8px rgba(111,204,100,.6)}
+.veg-badge-icon{border:1px solid rgba(111,204,100,.5);padding:3px 8px;font-size:.6rem;letter-spacing:.2em;color:#6FCC64}
+
+/* SECTIONS */
+.sec{padding:120px 72px;max-width:1440px;margin:0 auto}
+.sec-sm{padding:80px 72px;max-width:1440px;margin:0 auto}
+.label{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold2);margin-bottom:14px}
+.heading{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:500;line-height:1.05;color:var(--cream);margin-bottom:20px}
+.heading em{font-style:italic;color:var(--gold2)}
+.body-txt{font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.85;color:var(--muted);max-width:520px}
+
+/* STORY */
+#story{background:linear-gradient(to bottom,var(--dark) 0%,var(--dark2) 100%)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.story-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden}
+.story-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 7s ease}
+.story-img-wrap:hover img{transform:scale(1.06)}
+.story-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,11,7,.4) 0%,transparent 50%)}
+.story-frame{position:absolute;inset:16px;border:1px solid rgba(184,147,74,.2);pointer-events:none;z-index:1}
+.story-acc{position:absolute;bottom:-18px;right:-18px;width:65%;height:65%;border:1px solid rgba(184,147,74,.1);z-index:-1}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border:1px solid rgba(184,147,74,.12)}
+.stat{padding:28px 24px;border-right:1px solid rgba(184,147,74,.12);text-align:center}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold2);line-height:1}
+.stat-l{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-top:6px}
+
+/* FOOD GALLERY */
+#food{background:var(--dark2);padding:0 0 0}
+.food-header{padding:100px 72px 60px;max-width:1440px;margin:0 auto;text-align:center}
+.food-scroll-row{display:flex;gap:2px;overflow:hidden;height:520px}
+.food-item{flex:1;min-width:0;position:relative;overflow:hidden;cursor:none}
+.food-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.food-item:hover img{transform:scale(1.1)}
+.food-item:hover{flex:1.6}
+.food-item{transition:flex .5s cubic-bezier(.25,.46,.45,.94)}
+.food-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,11,7,.85) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.food-item:hover .food-overlay{opacity:1}
+.food-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--cream)}
+.food-desc{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* MENU */
+#menu{background:var(--dark3)}
+.menu-wrapper{max-width:1440px;margin:0 auto;padding:100px 72px}
+.menu-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px}
+.menu-tabs{display:flex;gap:0;margin-bottom:56px}
+.tab{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;padding:12px 34px;border:1px solid rgba(184,147,74,.18);color:var(--muted);background:none;font-family:'Raleway',sans-serif;font-weight:400;transition:all .3s;cursor:none;border-right:none}
+.tab:last-child{border-right:1px solid rgba(184,147,74,.18)}
+.tab.on,.tab:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);font-weight:600}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.mi{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(184,147,74,.08);transition:padding-left .25s;cursor:none}
+.mi:hover{padding-left:10px}
+.mi-l{}
+.mi-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--cream);font-weight:400}
+.mi-d{font-size:.72rem;color:var(--muted2);margin-top:3px;letter-spacing:.05em}
+.mi-p{font-family:'Playfair Display',serif;font-size:.85rem;color:var(--gold2);margin-left:20px;white-space:nowrap}
+.menu-note{margin-top:32px;font-size:.7rem;letter-spacing:.12em;color:var(--muted2);font-style:italic;font-family:'Cormorant Garamond',serif}
+
+/* SIGNATURE DISHES */
+#signature{background:var(--dark)}
+.sig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.sig-card{position:relative;aspect-ratio:2/3;overflow:hidden}
+.sig-card img{width:100%;height:100%;object-fit:cover;transition:transform .9s ease}
+.sig-card:hover img{transform:scale(1.08)}
+.sig-card-body{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,11,7,.92) 0%,rgba(13,11,7,.3) 45%,transparent 70%);padding:36px 32px;display:flex;flex-direction:column;justify-content:flex-end}
+.sig-tag{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px}
+.sig-name{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);line-height:1.15}
+.sig-desc{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--muted);font-style:italic;margin-top:8px}
+.sig-price{margin-top:14px;font-family:'Playfair Display',serif;font-size:.85rem;color:var(--gold3)}
+
+/* LODGE */
+#lodge{background:var(--dark4)}
+.lodge-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.lodge-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lodge-img{overflow:hidden;aspect-ratio:4/3}
+.lodge-img:first-child{grid-column:1/-1;aspect-ratio:16/9}
+.lodge-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.lodge-img:hover img{transform:scale(1.05)}
+.amenities{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.am{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(184,147,74,.1);transition:all .3s}
+.am:hover{border-color:rgba(184,147,74,.4);background:rgba(184,147,74,.03)}
+.am-ico{width:18px;text-align:center;color:var(--gold2);font-size:1rem}
+.am-n{font-size:.78rem;letter-spacing:.08em;color:var(--text);font-weight:400}
+
+/* EVENTS */
+#events{background:linear-gradient(to bottom,var(--dark3) 0%,var(--dark) 100%)}
+.ev-header{text-align:center;margin-bottom:80px}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.ev-card{background:var(--dark4);padding:56px 44px;position:relative;overflow:hidden;transition:background .3s}
+.ev-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .5s;transform-origin:left}
+.ev-card:hover::before{transform:scaleX(1)}
+.ev-card:hover{background:rgba(184,147,74,.04)}
+.ev-num{font-family:'Playfair Display',serif;font-size:5rem;color:rgba(184,147,74,.07);line-height:1;margin-bottom:28px}
+.ev-name{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--cream);margin-bottom:16px}
+.ev-desc{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--muted);line-height:1.75;font-style:italic}
+.ev-img-wrap{margin-top:40px;aspect-ratio:16/9;overflow:hidden}
+.ev-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.ev-card:hover .ev-img-wrap img{transform:scale(1.06)}
+
+/* REVIEWS */
+#reviews{background:var(--dark2)}
+.rev-header{text-align:center;margin-bottom:80px}
+.rating-hero{display:flex;align-items:center;justify-content:center;gap:28px;margin-bottom:64px}
+.r-num{font-family:'Playfair Display',serif;font-size:6rem;color:var(--gold2);line-height:1}
+.r-stars{font-size:1.6rem;color:var(--gold2)}
+.r-lbl{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted2);margin-top:6px}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.rev-card{background:var(--dark3);padding:52px 44px;transition:background .3s}
+.rev-card:hover{background:rgba(184,147,74,.04)}
+.rev-stars{color:var(--gold2);font-size:.75rem;letter-spacing:5px;margin-bottom:20px}
+.rev-txt{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--cream);line-height:1.75;font-style:italic;margin-bottom:24px}
+.rev-txt::before{content:'\201C';font-size:3.5rem;color:rgba(184,147,74,.18);line-height:0;vertical-align:-1.1rem;margin-right:4px}
+.rev-by{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
+.rev-date{font-size:.6rem;color:rgba(184,147,74,.35);margin-top:4px}
+
+/* CTA BAND */
+#cta{background:var(--gold);padding:90px 72px;display:flex;justify-content:space-between;align-items:center}
+.cta-left .label{color:rgba(13,11,7,.55)}
+.cta-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,3rem);color:var(--dark);line-height:1.1}
+.cta-right{display:flex;gap:16px;align-items:center}
+.cta-dark{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;background:var(--dark);color:var(--gold2);padding:16px 40px;text-decoration:none;font-weight:600;transition:background .3s}
+.cta-dark:hover{background:#1C160C}
+.cta-call{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--dark);text-decoration:none;border-bottom:1px solid rgba(13,11,7,.35);padding-bottom:2px}
+
+/* LOCATION */
+#loc{background:var(--dark)}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.map-box{aspect-ratio:1;overflow:hidden;border:1px solid rgba(184,147,74,.12);position:relative}
+.map-box iframe{width:100%;height:100%;border:none;filter:grayscale(30%) sepia(20%) brightness(.9)}
+.info-item{padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid rgba(184,147,74,.1)}
+.info-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.info-lbl{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px}
+.info-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--text);line-height:1.65}
+.info-val a{color:var(--gold2);text-decoration:none}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:1px solid rgba(184,147,74,.1);padding:80px 72px 36px}
+.footer-inner{max-width:1440px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:64px;margin-bottom:64px}
+.ft-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold2);margin-bottom:14px}
+.ft-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.veg-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(74,158,64,.4);padding:6px 14px;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#6FCC64}
+.ft-col h5{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:22px;font-weight:500}
+.ft-col ul{list-style:none}
+.ft-col li{margin-bottom:12px}
+.ft-col a{font-size:.8rem;color:var(--muted);text-decoration:none;transition:color .3s;letter-spacing:.04em}
+.ft-col a:hover{color:var(--gold2)}
+.footer-bot{border-top:1px solid rgba(184,147,74,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center}
+.copy{font-size:.65rem;color:rgba(255,255,255,.18);letter-spacing:.1em}
+.gmap-link{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);text-decoration:none;opacity:.6;transition:opacity .3s}
+.gmap-link:hover{opacity:1}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+.fade-l{opacity:0;transform:translateX(-36px);transition:opacity .85s ease,transform .85s ease}
+.fade-l.in{opacity:1;transform:translateX(0)}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav,.veg-strip,.sec,.sec-sm,.menu-wrapper,.footer-inner,#cta,.footer-top,#loc .loc-grid{padding-left:24px;padding-right:24px}
+  .story-grid,.lodge-grid,.loc-grid{grid-template-columns:1fr;gap:40px}
+  .sig-grid,.ev-grid,.rev-grid{grid-template-columns:1fr}
+  .menu-grid{grid-template-columns:1fr}
+  .food-scroll-row{height:340px;flex-direction:column;height:auto;gap:4px}
+  .food-item{height:220px;flex:none}
+  .hero-ctas{flex-direction:column;align-items:center}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  #cta{flex-direction:column;gap:40px;text-align:center}
+  .nav-links,.nav-btn{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">RADHIKA</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">RADHIKA <em>VEG & LODGE</em></a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#food">Cuisine</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#lodge">Lodge</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="https://share.google/sUcqgRuROTE1yiHm0" target="_blank" class="nav-btn">Get Directions</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vid-wrap">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1517244683847-7456b63c5969?w=1600&q=90&fit=crop" alt="Fine dining">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Pure Vegetarian Fine Dining</div>
+    <h1 class="hero-name">RADHIKA <span>VEG & LODGE</span></h1>
+    <p class="hero-tagline">Where every meal is a ceremony, every stay a memory</p>
+    <p class="hero-hindi">राधिका व्हेज एंड लॉज — Taste. Stay. Enjoy.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="cta-primary">Explore Menu</a>
+      <a href="#lodge" class="cta-secondary">View Rooms</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-txt">Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- VEG STRIP -->
+<div class="veg-strip">
+  <div class="veg-dot"></div>
+  <span>100% Pure Vegetarian</span>
+  <span class="veg-badge-icon">✦ No Onion · No Garlic Available ✦</span>
+  <span>Multi-Cuisine Restaurant & Lodge</span>
+  <div class="veg-dot"></div>
+</div>
+
+<!-- STORY -->
+<div id="story">
+  <div class="sec story-grid">
+    <div class="story-img-wrap fade-l">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=90&fit=crop" alt="Restaurant interior">
+      <div class="story-frame"></div>
+      <div class="story-acc"></div>
+    </div>
+    <div class="fade">
+      <p class="label">✦ Our Story</p>
+      <h2 class="heading">A Legacy of <em>Pure Flavours</em></h2>
+      <p class="body-txt">Radhika Veg & Lodge is Dharashiv's finest pure vegetarian destination — where centuries of culinary tradition meet contemporary refinement. Every dish is an expression of passion, every room a retreat designed for the discerning traveller.</p>
+      <p class="body-txt" style="margin-top:20px">From the first cup of special tea at dawn to the last naan in the evening, we craft experiences that linger in memory long after you leave our doors.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-n">5.0</div>
+          <div class="stat-l">Google Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">100%</div>
+          <div class="stat-l">Pure Veg</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">AC</div>
+          <div class="stat-l">Rooms & Dining</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">✦</div>
+          <div class="stat-l">Fine Dining</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOD GALLERY -->
+<div id="food">
+  <div class="food-header fade">
+    <p class="label">✦ The Kitchen</p>
+    <h2 class="heading">Crafted with <em>Fire & Soul</em></h2>
+  </div>
+  <div class="food-scroll-row">
+    <div class="food-item">
+      <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800&q=90&fit=crop" alt="Biryani">
+      <div class="food-overlay"><div class="food-name">Veg Biryani</div><div class="food-desc">Freshly prepared, authentic Dharashiv style</div></div>
+    </div>
+    <div class="food-item">
+      <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&q=90&fit=crop" alt="Idli Sambar">
+      <div class="food-overlay"><div class="food-name">Idli Sambar</div><div class="food-desc">Soft idlis with piping hot sambar</div></div>
+    </div>
+    <div class="food-item">
+      <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=90&fit=crop" alt="Wada">
+      <div class="food-overlay"><div class="food-name">Vada Sambar</div><div class="food-desc">Golden crisp, served with chutney</div></div>
+    </div>
+    <div class="food-item">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=90&fit=crop" alt="Curry">
+      <div class="food-overlay"><div class="food-name">Kofta Curry</div><div class="food-desc">Rich, aromatic gravies</div></div>
+    </div>
+    <div class="food-item">
+      <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=90&fit=crop" alt="Naan">
+      <div class="food-overlay"><div class="food-name">Fresh Naan</div><div class="food-desc">Tandoor-baked, butter soft</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNATURE DISHES -->
+<div id="signature">
+  <div class="sec">
+    <div style="text-align:center;margin-bottom:64px" class="fade">
+      <p class="label">✦ Signature</p>
+      <h2 class="heading">House <em>Specialities</em></h2>
+    </div>
+    <div class="sig-grid">
+      <div class="sig-card fade">
+        <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=700&q=90&fit=crop" alt="Biryani">
+        <div class="sig-card-body">
+          <div class="sig-tag">✦ Chef's Special</div>
+          <div class="sig-name">Radhika Veg Biryani</div>
+          <div class="sig-desc">Authentic taste of Dharashiv — freshly prepared with aromatic spices</div>
+        </div>
+      </div>
+      <div class="sig-card fade" style="transition-delay:.15s">
+        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700&q=90&fit=crop" alt="Kofta">
+        <div class="sig-card-body">
+          <div class="sig-tag">✦ House Special</div>
+          <div class="sig-name">Radhika Special Veg Kofta</div>
+          <div class="sig-desc">Rich kofta curry with fresh naan, acclimated sides & grated cheese</div>
+        </div>
+      </div>
+      <div class="sig-card fade" style="transition-delay:.3s">
+        <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=700&q=90&fit=crop" alt="Misal Pav">
+        <div class="sig-card-body">
+          <div class="sig-tag">✦ Maharashtrian Classic</div>
+          <div class="sig-name">Sp. Misal Pav</div>
+          <div class="sig-desc">The iconic spiced sprout curry — Radhika's own legendary recipe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div id="menu">
+  <div class="menu-wrapper">
+    <div class="menu-top fade">
+      <div>
+        <p class="label">✦ Our Menu</p>
+        <h2 class="heading">Pure Vegetarian <em>Selections</em></h2>
+      </div>
+      <p class="body-txt" style="text-align:right;max-width:280px;font-size:1rem;margin:0">All prices inclusive · Pure veg kitchen</p>
+    </div>
+    <div class="menu-tabs">
+      <button class="tab on" onclick="switchTab('bf',this)">Breakfast</button>
+      <button class="tab" onclick="switchTab('bv',this)">Beverages</button>
+      <button class="tab" onclick="switchTab('sp',this)">Specials</button>
+      <button class="tab" onclick="switchTab('ld',this)">Lunch / Dinner</button>
+    </div>
+    <div id="menu-body" class="menu-grid"></div>
+    <p class="menu-note">✦ Prices in Indian Rupees (₹) · Menu subject to seasonal availability · All dishes freshly prepared</p>
+  </div>
+</div>
+
+<!-- LODGE -->
+<div id="lodge">
+  <div class="sec lodge-grid">
+    <div class="lodge-imgs fade-l">
+      <div class="lodge-img">
+        <img src="/mnt/user-data/uploads/1774420078920_image.png" alt="Luxury room">
+      </div>
+      <div class="lodge-img">
+        <img src="/mnt/user-data/uploads/1774420095166_image.png" alt="Room view">
+      </div>
+      <div class="lodge-img" style="aspect-ratio:16/9">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=90&fit=crop" alt="Luxury bed">
+      </div>
+    </div>
+    <div class="fade">
+      <p class="label">✦ The Lodge</p>
+      <h2 class="heading">Rooms of <em>Quiet Luxury</em></h2>
+      <p class="body-txt">Every room at Radhika Lodge is an oasis — air-conditioned, immaculately appointed, and thoughtfully equipped for complete comfort. Modern interiors, premium bedding, and attentive service define your stay.</p>
+      <div class="amenities">
+        <div class="am"><span class="am-ico">❄</span><span class="am-n">Air Conditioning</span></div>
+        <div class="am"><span class="am-ico">📺</span><span class="am-n">Smart Television</span></div>
+        <div class="am"><span class="am-ico">🛏</span><span class="am-n">Premium Bedding</span></div>
+        <div class="am"><span class="am-ico">🍽</span><span class="am-n">In-Room Dining</span></div>
+        <div class="am"><span class="am-ico">🔒</span><span class="am-n">24/7 Security</span></div>
+        <div class="am"><span class="am-ico">🌿</span><span class="am-n">Pure Veg Property</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<div id="events">
+  <div class="sec">
+    <div class="ev-header fade">
+      <p class="label">✦ Celebrations</p>
+      <h2 class="heading">Mark Every <em>Milestone</em></h2>
+      <p class="body-txt" style="margin:0 auto;text-align:center">Radhika transforms every occasion into an enduring memory — from grand weddings to intimate gatherings.</p>
+    </div>
+    <div class="ev-grid">
+      <div class="ev-card fade">
+        <div class="ev-num">01</div>
+        <div class="ev-name">Wedding Ceremonies</div>
+        <div class="ev-desc">Breathtaking open-air mandaps with pyrotechnic grandeur. Lighting, floral arrangements, and a pure vegetarian feast worthy of your most sacred union.</div>
+        <div class="ev-img-wrap">
+          <img src="/mnt/user-data/uploads/1774420230593_image.png" alt="Wedding at Radhika">
+        </div>
+      </div>
+      <div class="ev-card fade" style="transition-delay:.15s">
+        <div class="ev-num">02</div>
+        <div class="ev-name">Family Gatherings</div>
+        <div class="ev-desc">Intimate family dinners or large family functions — our spacious halls, attentive staff, and lovingly crafted pure veg menus bring everyone together.</div>
+        <div class="ev-img-wrap">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=90&fit=crop" alt="Family gathering">
+        </div>
+      </div>
+      <div class="ev-card fade" style="transition-delay:.3s">
+        <div class="ev-num">03</div>
+        <div class="ev-name">Corporate Events</div>
+        <div class="ev-desc">Professional environments with impeccable service and refined vegetarian catering — the ideal venue for team events, conferences, and client dining.</div>
+        <div class="ev-img-wrap">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=90&fit=crop" alt="Corporate event">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div id="reviews">
+  <div class="sec">
+    <div class="rev-header fade">
+      <p class="label">✦ Guest Voices</p>
+      <h2 class="heading">Words of <em>Delight</em></h2>
+      <div class="rating-hero">
+        <div class="r-num">5.0</div>
+        <div>
+          <div class="r-stars">★★★★★</div>
+          <div class="r-lbl">Google Reviews · Exceptional</div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card fade">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-txt">Tasty food and the atmosphere is great. Truly a wonderful experience — the quality and warmth here is unmatched.</p>
+        <div class="rev-by">Google Review</div>
+        <div class="rev-date">1 week ago · Food: 5/5</div>
+      </div>
+      <div class="rev-card fade" style="transition-delay:.15s">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-txt">New pure veg family hotel — excellent food quality with top-notch service. Perfect place for families who value purity.</p>
+        <div class="rev-by">Google Review</div>
+        <div class="rev-date">2 weeks ago · Service: 5/5</div>
+      </div>
+      <div class="rev-card fade" style="transition-delay:.3s">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-txt">Veryyy nice hotel nd lodging 😍 The rooms are spotless and food is absolutely delicious. Highly recommend!</p>
+        <div class="rev-by">Google Review</div>
+        <div class="rev-date">3 weeks ago</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div id="cta">
+  <div class="cta-left">
+    <p class="label">Reserve Your Experience</p>
+    <h2 class="cta-heading">Book a Table or<br>Plan Your Stay</h2>
+  </div>
+  <div class="cta-right">
+    <a href="https://share.google/sUcqgRuROTE1yiHm0" target="_blank" class="cta-dark">Get Directions</a>
+    <a href="tel:+91" class="cta-call">Call Us</a>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div id="loc">
+  <div class="sec loc-grid">
+    <div class="map-box fade-l">
+      <iframe src="https://maps.google.com/maps?q=Radhika+Veg+and+Lodge+Dharashiv&output=embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="fade">
+      <p class="label">✦ Visit Us</p>
+      <h2 class="heading">Find <em>Radhika</em></h2>
+      <div class="info-item">
+        <div class="info-lbl">Restaurant & Lodge</div>
+        <div class="info-val">Radhika Veg & Lodge<br>राधिका व्हेज एंड लॉज<br>Dharashiv, Maharashtra, India</div>
+      </div>
+      <div class="info-item">
+        <div class="info-lbl">Directions</div>
+        <div class="info-val"><a href="https://share.google/sUcqgRuROTE1yiHm0" target="_blank">Open in Google Maps →</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-lbl">Cuisine</div>
+        <div class="info-val">100% Pure Vegetarian · Multi-Cuisine<br>Breakfast · Lunch · Dinner</div>
+      </div>
+      <div class="info-item">
+        <div class="info-lbl">Rating</div>
+        <div class="info-val">⭐ 5.0 / 5.0 on Google Maps</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="ft-logo">RADHIKA</div>
+        <p class="ft-tag">Pure vegetarian excellence in<br>dining and accommodation — Dharashiv.</p>
+        <div class="veg-pill"><div class="veg-dot"></div> 100% Pure Vegetarian</div>
+      </div>
+      <div class="ft-col">
+        <h5>Dining</h5>
+        <ul>
+          <li><a href="#menu">Breakfast Menu</a></li>
+          <li><a href="#signature">Signature Dishes</a></li>
+          <li><a href="#food">Our Kitchen</a></li>
+          <li><a href="#events">Group Dining</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Lodge</h5>
+        <ul>
+          <li><a href="#lodge">Our Rooms</a></li>
+          <li><a href="#lodge">Amenities</a></li>
+          <li><a href="#events">Events & Banquets</a></li>
+          <li><a href="#loc">Location</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://share.google/sUcqgRuROTE1yiHm0" target="_blank">Google Maps</a></li>
+          <li><a href="#reviews">Guest Reviews</a></li>
+          <li><a href="#loc">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p class="copy">© 2026 Radhika Veg & Lodge · राधिका व्हेज एंड लॉज · Dharashiv · All rights reserved</p>
+      <a href="https://share.google/sUcqgRuROTE1yiHm0" target="_blank" class="gmap-link">Open in Google Maps →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// LOADER
+setTimeout(()=>document.getElementById('loader').classList.add('hide'),2200);
+
+// CURSOR
+const c=document.getElementById('cur'),c2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx-3+'px';c.style.top=my-3+'px'});
+(function ani(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;c2.style.left=rx-16+'px';c2.style.top=ry-16+'px';requestAnimationFrame(ani)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c2.style.width='54px';c2.style.height='54px';c2.style.opacity='.25'});
+  el.addEventListener('mouseleave',()=>{c2.style.width='32px';c2.style.height='32px';c2.style.opacity='.4'});
+});
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>80));
+
+// MENU DATA
+const menus={
+  bf:[
+    {n:'Gol Bhaji',d:'Classic potato bhaji',p:'₹40'},
+    {n:'Onion / Potato / Pakoda',d:'Crispy fritters',p:'₹40'},
+    {n:'Potato Wada Chatani',d:'With fresh chutney',p:'₹40'},
+    {n:'Sheera',d:'Traditional sweet semolina',p:'₹40'},
+    {n:'Poha',d:'Light flattened rice',p:'₹40'},
+    {n:'Upasna',d:'Fasting special breakfast',p:'₹40'},
+    {n:'Potato Wada Sambar (Double)',d:'With hot sambar',p:'₹75'},
+    {n:'Potato Wada Sambar (Single)',d:'With sambar',p:'₹60'},
+    {n:'Idli Chatani',d:'Soft idli with chutney',p:'₹40'},
+    {n:'Idli Sambar (Double)',d:'Two idlis with sambar',p:'₹80'},
+    {n:'Idli Sambar (Single)',d:'One idli with sambar',p:'₹50'},
+    {n:'Udid Wada Chatani',d:'Crispy lentil wada',p:'₹50'},
+    {n:'Udid Wada Sambar (Double)',d:'Two wadas with sambar',p:'₹80'},
+    {n:'Udid Wada Sambar (Single)',d:'One wada with sambar',p:'₹50'},
+    {n:'Sp. Misal Pav',d:'House special recipe',p:'₹80'},
+    {n:'Pav',d:'Fresh baked pav',p:'₹5'},
+    {n:'Dahi Misal',d:'Yoghurt misal',p:'₹80'},
+    {n:'Dahi Wada',d:'Creamy yoghurt wada',p:'₹80'},
+    {n:'Batata Wada / Pav',d:'Mumbai street classic',p:'₹25'},
+  ],
+  bv:[
+    {n:'Special Tea',d:'Radhika house blend',p:'₹20'},
+    {n:'Milk',d:'Fresh & warm',p:'₹30'},
+    {n:'Coffee',d:'Aromatic hot brew',p:'₹30'},
+    {n:'Nescafé',d:'Instant classic',p:'₹30'},
+  ],
+  sp:[
+    {n:'Radhika Special Veg Kofta',d:'Rich gravy, naan, sides & cheese',p:'Ask us'},
+    {n:'Veg Biryani',d:'Freshly prepared, Dharashiv style',p:'Ask us'},
+    {n:'Sp. Misal Pav',d:'Legendary house recipe',p:'₹80'},
+    {n:'Daily Special',d:'Ask your server today',p:'Ask us'},
+  ],
+  ld:[
+    {n:'Dal Tadka',d:'Tempered lentils with ghee',p:'Ask us'},
+    {n:'Paneer Butter Masala',d:'Creamy tomato gravy',p:'Ask us'},
+    {n:'Mixed Veg Curry',d:'Seasonal vegetables',p:'Ask us'},
+    {n:'Roti / Chapati',d:'Fresh whole wheat',p:'Ask us'},
+    {n:'Naan (Butter / Garlic)',d:'Tandoor baked',p:'Ask us'},
+    {n:'Steamed Rice',d:'Long grain basmati',p:'Ask us'},
+    {n:'Veg Pulao',d:'Fragrant rice with vegetables',p:'Ask us'},
+    {n:'Raita',d:'Yoghurt with cucumber',p:'Ask us'},
+  ]
+};
+function renderMenu(k){
+  const items=menus[k];
+  document.getElementById('menu-body').innerHTML=items.map(i=>`
+    <div class="mi">
+      <div class="mi-l">
+        <div class="mi-name">${i.n}</div>
+        <div class="mi-d">${i.d}</div>
+      </div>
+      <div class="mi-p">${i.p}</div>
+    </div>`).join('');
+}
+function switchTab(k,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  renderMenu(k);
+}
+renderMenu('bf');
+
+// SCROLL FADE
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.12});
+document.querySelectorAll('.fade,.fade-l').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
